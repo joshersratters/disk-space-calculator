@@ -11,13 +11,9 @@ import MessageUI
 
 class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
-   
-    
-
-    @IBAction func ButtonDone(sender: UIButton) {
+    @IBAction func closeModal(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
    
     @IBAction func feedbackButtonPress(sender: AnyObject) {
         
