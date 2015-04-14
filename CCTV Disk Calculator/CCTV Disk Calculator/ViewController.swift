@@ -12,7 +12,6 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     
     
-    
     //declare DVR class
     struct dvr {
         //properties
@@ -101,6 +100,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         
+        cell.detailTextLabel?.text = self.currentDataRate.description
+        
         if indexPath.section == 0 {
             let (valueStrings) = arrayValueStrings[indexPath.row]
             cell.textLabel?.text = valueStrings
@@ -121,7 +122,9 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         } else {
             return nil
         }
-    } // end table code
+    }
+    
+    // end table code
     
     
     // Picker view code
@@ -176,7 +179,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier)
             println("The current resolution is \(currentResolution) and res multiplier is \(currentResMultiplier)")
             println("The current data rate is \(currentDataRate)")
-           
             
         case 1:
             currentFrameRate = frameRate[row]
