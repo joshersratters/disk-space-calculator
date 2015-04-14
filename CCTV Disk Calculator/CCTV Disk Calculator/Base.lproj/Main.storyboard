@@ -131,7 +131,7 @@
                                 <segue destination="UgJ-Vh-a48" kind="presentation" id="OYZ-ex-L7G"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="hFW-0L-wmQ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="hFW-0L-wmQ"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
