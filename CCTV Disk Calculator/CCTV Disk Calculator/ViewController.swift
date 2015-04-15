@@ -11,6 +11,8 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    @IBAction func stepperValueChanged(sender: UIStepper) {
+    }
     
     //declare DVR class
     struct dvr {
@@ -29,12 +31,22 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
    
     //calculate current data rate
+    var currentDataRate : Double = 8.0
+    
     func calculateDataRate(baseRate : Double, resMultiplier : Double) -> Double {
         
         //store current data rate
         var currentDataRate : Double = currentBaseRate * currentResMultiplier
         
         return currentDataRate
+    }
+    
+    //calculate current Gigabytes per day
+    var currentGigaBytesPerDay : Double = 0
+    
+    func calculateGigaBytesPerDay(noChannels : Int, dataRate : Double) -> Double {
+        
+        return 0
     }
     
     //DECLARE VARIABLES
@@ -48,9 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     //calculate res multiplier variables
     let resMultiplier = [0.25,1,2,4,8,20]
     var currentResMultiplier : Double = 0.25
-   
-    var currentDataRate : Double = 8.0
-   
+    
     
     //resolution variables
     let arrayResolution = ["Full HD","HD","4CIF","2CIF","CIF","QCIF"].reverse()
@@ -100,10 +110,17 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         
-        cell.detailTextLabel?.text = self.currentDataRate.description
+        //Put particular row detail text to a variable
+        switch indexPath.row {
+        case 0:
+            cell.detailTextLabel!.text = currentDataRate.description
+        default:
+            cell.detailTextLabel!.text = 0.description
+            
+        }
         
         if indexPath.section == 0 {
-            let (valueStrings) = arrayValueStrings[indexPath.row]
+            let valueStrings = arrayValueStrings[indexPath.row]
             cell.textLabel?.text = valueStrings
         } else if indexPath.section == 1 {
             return cell
