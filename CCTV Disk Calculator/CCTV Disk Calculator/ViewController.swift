@@ -12,6 +12,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBAction func stepperValueChanged(sender: UIStepper) {
+        
     }
     
     //declare DVR class
@@ -63,24 +64,25 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     
     //resolution variables
-    let arrayResolution = ["Full HD","HD","4CIF","2CIF","CIF","QCIF"].reverse()
+    let arrayResolution = ["1080p","720p","4CIF","2CIF","CIF","QCIF"].reverse()
     let arrayResolutionNum = [1920*1080,1280*720,704*480,704*240,352*240,176*144].reverse()
-    var currentResolution : Int = 0
+    var currentResolution : Int = 176*144
     
     //framerate variables
     let frameRate = [1,2,4,6,8,10,12,16,20,25]
-    var currentFrameRate : Int = 0
+    var currentFrameRate : Int = 1
     
     //instantiate an instance of dvr
     let alien654:dvr = dvr(modelName: "ALIEN Hero", numberOfChannels: 4)
     
     //HDD size
-    let hddMB = [4,8,16,32,64,128,160,250,320,400,500,640,750,1000,1200,1500,2000,3000,4000]
-    var currentHDDMB : Int?
+    let hddGB = [4,8,16,32,64,128,160,250,320,400,500,640,750,1000,1200,1500,2000,3000,4000,6000]
+    let hddString = ["4GB","8GB","16GB","32GB","64GB","128GB","160GB","250GB","320GB","400GB","500GB","640GB","750GB","1TB","1.2TB","1.5TB","2TB","3TB","4TB","6TB"]
+    var currentHDDGB : Int = 4
     
     //number of HDD
-    let numberOfHDD = [Int](1...10)
-    var currentNumberOfHDD : Int?
+    let numberOfHDD = [Int](1...8)
+    var currentNumberOfHDD : Int = 1
     
     //number of cameras (using a closure range operator)
     let numberOfCameras = [Int](1...100)
@@ -159,7 +161,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         case 1:
             return self.frameRate.count
         case 2:
-            return self.hddMB.count
+            return self.hddGB.count
         case 3:
             return numberOfHDD.count
         case 4:
@@ -177,7 +179,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         case 1:
             return " \(self.frameRate[row].description) fps"
         case 2:
-            return "\(self.hddMB[row].description) MB"
+            return self.hddString[row]
         case 3:
             return "\(self.numberOfHDD[row]) HDD"
         case 4:
@@ -205,11 +207,11 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             println("The current data rate is \(currentDataRate)")
             
         case 2:
-            currentHDDMB = hddMB[row]
-            println("The current HDD MB value is \(currentHDDMB!)")
+            currentHDDGB = hddGB[row]
+            println("The current HDD GB value is \(currentHDDGB)")
         case 3:
             currentNumberOfHDD = numberOfHDD[row]
-            println("The current number of HDD's is \(currentNumberOfHDD!)")
+            println("The current number of HDD's is \(currentNumberOfHDD)")
         case 4:
             currentNumberOfCameras = numberOfCameras[row]
             println("The number of cameras is \(currentNumberOfCameras!)")
