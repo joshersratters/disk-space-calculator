@@ -12,8 +12,23 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBAction func stepperValueChanged(sender: UIStepper) {
-        
+        currentNumberOfCameras.text = Int(stepper.value).description
+        println("The current stepper value is \(Int(stepper.value))") //stepper value double as int
     }
+    
+    @IBOutlet weak var stepper: UIStepper!
+    
+    @IBOutlet weak var currentNumberOfCameras: UILabel!
+
+    @IBAction func calculateVariables(sender: AnyObject) {
+        currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier)
+        currentGigaBytesPerDay = calculateGigaBytesPerDay(self.stepper.value, dataRate: currentDataRate)
+        currentNumberOfDays = calculateNumberOfDays(currentHDDGB, hddNumber: currentNumberOfHDD, gbPerDay: currentGigaBytesPerDay)
+        outputTableView.reloadData()
+        println("The current number of days is \(currentNumberOfDays)")
+    }
+    
+    @IBOutlet weak var outputTableView: UITableView!
     
     //declare DVR class
     struct dvr {
@@ -32,7 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
    
     //calculate current data rate
-    var currentDataRate : Double = 8.0
+    var currentDataRate : Double = 0
     
     func calculateDataRate(baseRate : Double, resMultiplier : Double) -> Double {
         
@@ -45,9 +60,20 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     //calculate current Gigabytes per day
     var currentGigaBytesPerDay : Double = 0
     
-    func calculateGigaBytesPerDay(noChannels : Int, dataRate : Double) -> Double {
+    func calculateGigaBytesPerDay(noCameras : Double, dataRate : Double) -> Double {
+       
+        var currentGigaBytesPerDay = stepper.value * ((currentDataRate / 8) * 0.086400)
         
-        return 0
+        return Double(round(100*currentGigaBytesPerDay)/100) //round to 2 decimal places
+       
+    }
+    
+    //caluclate number of days
+    var currentNumberOfDays : Double = 0
+    func calculateNumberOfDays (hddSize : Int, hddNumber : Int, gbPerDay : Double) -> Double {
+        
+        var numberOfDays = (Double(self.currentHDDGB) * Double(self.currentNumberOfHDD)) / Double(currentGigaBytesPerDay)
+        return numberOfDays
     }
     
     //DECLARE VARIABLES
@@ -85,11 +111,11 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     var currentNumberOfHDD : Int = 1
     
     //number of cameras (using a closure range operator)
-    let numberOfCameras = [Int](1...100)
-    var currentNumberOfCameras : Int?
+    //let numberOfCameras = [Int](1...100)
+    //var currentNumberOfCameras : Int?
     
     //array of data values
-    let arrayValueStrings = ["Data Rate in kb/s","Gigabytes per day","Number of days","Number of months","Number of years"]
+    let arrayValueStrings = ["Data Rate in kb/s","Gigabytes per day","Number of days (Approx)","Number of months (Approx)","Number of years (Approx)"]
     
    
     
@@ -116,6 +142,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         switch indexPath.row {
         case 0:
             cell.detailTextLabel!.text = currentDataRate.description
+        case 1:
+            cell.detailTextLabel!.text = currentGigaBytesPerDay.description
+        case 2:
+            cell.detailTextLabel!.text = currentNumberOfDays.description
         default:
             cell.detailTextLabel!.text = 0.description
             
@@ -148,7 +178,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     // Picker view code
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        // Return 2 columns
+        // Return 4 columns
         return 4
         
     }
@@ -164,8 +194,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             return self.hddGB.count
         case 3:
             return numberOfHDD.count
-        case 4:
-            return numberOfCameras.count
         default:
             return 0
         }
@@ -182,8 +210,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             return self.hddString[row]
         case 3:
             return "\(self.numberOfHDD[row]) HDD"
-        case 4:
-            return "\(self.numberOfCameras[row]) Cameras"
         default:
             return nil
         }
@@ -195,26 +221,17 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         case 0:
             currentResolution = arrayResolutionNum[row]
             currentResMultiplier = resMultiplier[row]
-            currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier)
             println("The current resolution is \(currentResolution) and res multiplier is \(currentResMultiplier)")
-            println("The current data rate is \(currentDataRate)")
-            
         case 1:
             currentFrameRate = frameRate[row]
             currentBaseRate = baseRate[row]
-            currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier)
             println("FPS value is \(currentFrameRate) and base rate is \(currentBaseRate)")
-            println("The current data rate is \(currentDataRate)")
-            
         case 2:
             currentHDDGB = hddGB[row]
             println("The current HDD GB value is \(currentHDDGB)")
         case 3:
             currentNumberOfHDD = numberOfHDD[row]
             println("The current number of HDD's is \(currentNumberOfHDD)")
-        case 4:
-            currentNumberOfCameras = numberOfCameras[row]
-            println("The number of cameras is \(currentNumberOfCameras!)")
         default:
             println("Not sure...")
         }
