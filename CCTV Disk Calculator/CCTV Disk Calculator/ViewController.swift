@@ -28,6 +28,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         println("The current number of days is \(currentNumberOfDays)")
     }
     
+    @IBAction func pressTechnicalTips(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support")!)
+    }
+    
     @IBOutlet weak var outputTableView: UITableView!
     
     //declare DVR class
@@ -73,7 +77,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     func calculateNumberOfDays (hddSize : Int, hddNumber : Int, gbPerDay : Double) -> Double {
         
         var numberOfDays = (Double(self.currentHDDGB) * Double(self.currentNumberOfHDD)) / Double(currentGigaBytesPerDay)
-        return numberOfDays
+        return Double(round(100*numberOfDays)/100) //round to 2 decimal places
     }
     
     //DECLARE VARIABLES
