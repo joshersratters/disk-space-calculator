@@ -138,7 +138,11 @@
                                 <segue destination="UgJ-Vh-a48" kind="presentation" id="OYZ-ex-L7G"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Technical Tips" id="hFW-0L-wmQ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Technical Tips" id="hFW-0L-wmQ">
+                            <connections>
+                                <action selector="pressTechnicalTips:" destination="vXZ-lx-hvc" id="imc-Su-hA0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="currentNumberOfCameras" destination="A2N-HU-NcZ" id="8aY-8l-jAe"/>
