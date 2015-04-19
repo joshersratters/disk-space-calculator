@@ -10,15 +10,15 @@ import UIKit
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
-    
     @IBAction func stepperValueChanged(sender: UIStepper) {
         currentNumberOfCameras.text = Int(stepper.value).description
         println("The current stepper value is \(Int(stepper.value))") //stepper value double as int
     }
     
     @IBOutlet weak var stepper: UIStepper!
-    
     @IBOutlet weak var currentNumberOfCameras: UILabel!
+    @IBOutlet weak var detailPicker: UIPickerView!
+    @IBOutlet weak var outputTableView: UITableView!
 
     @IBAction func calculateVariables(sender: AnyObject) {
         currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier!)
@@ -28,15 +28,20 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         println("The current number of days is \(currentNumberOfDays)")
     }
     
-//    @IBAction func resetInputValues(sender: AnyObject) {
-//        detailPicker.
-//    }
+    @IBAction func resetInputValues(sender: AnyObject) {
+        for var i = 0; i < numberOfComponentsInPickerView(detailPicker); i++ {
+            detailPicker.selectRow(0, inComponent: i, animated: true)
+        }
+        
+        initialiseInputVariables()
+        resetValuesInTableView()
+    }
+    
     
     @IBAction func pressTechnicalTips(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support")!)
     }
     
-    @IBOutlet weak var outputTableView: UITableView!
     
     //declare DVR class
     struct dvr {
@@ -185,7 +190,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     
     // Picker view code
-    @IBOutlet weak var detailPicker: UIPickerView!
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         // Return 4 columns
@@ -261,6 +265,13 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         currentNumberOfHDD = numberOfHDD.first
         currentResMultiplier = resMultiplier.first
         currentResolution = arrayResolutionNum.first
+    }
+    
+    func resetValuesInTableView() {
+        currentDataRate = 0
+        currentGigaBytesPerDay = 0
+        currentNumberOfDays = 0
+        outputTableView.reloadData()
     }
     
     override func viewDidLoad() {

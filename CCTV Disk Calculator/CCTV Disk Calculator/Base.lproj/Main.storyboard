@@ -151,7 +151,7 @@
                     <connections>
                         <outlet property="currentNumberOfCameras" destination="A2N-HU-NcZ" id="8aY-8l-jAe"/>
                         <outlet property="detailPicker" destination="XHy-dT-rPy" id="qu8-Jy-ko4"/>
-                        <outlet property="outputTableView" destination="Urw-MG-i3k" id="Zyx-qd-Fnm"/>
+                        <outlet property="outputTableView" destination="Urw-MG-i3k" id="HUm-VO-FWt"/>
                         <outlet property="stepper" destination="KDj-iQ-fx7" id="fIj-jr-bVc"/>
                     </connections>
                 </viewController>
