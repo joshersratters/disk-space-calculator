@@ -10,29 +10,38 @@ import UIKit
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
-    
     @IBAction func stepperValueChanged(sender: UIStepper) {
         currentNumberOfCameras.text = Int(stepper.value).description
         println("The current stepper value is \(Int(stepper.value))") //stepper value double as int
     }
     
     @IBOutlet weak var stepper: UIStepper!
-    
     @IBOutlet weak var currentNumberOfCameras: UILabel!
+    @IBOutlet weak var detailPicker: UIPickerView!
+    @IBOutlet weak var outputTableView: UITableView!
 
     @IBAction func calculateVariables(sender: AnyObject) {
-        currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier)
+        currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier!)
         currentGigaBytesPerDay = calculateGigaBytesPerDay(self.stepper.value, dataRate: currentDataRate)
-        currentNumberOfDays = calculateNumberOfDays(currentHDDGB, hddNumber: currentNumberOfHDD, gbPerDay: currentGigaBytesPerDay)
+        currentNumberOfDays = calculateNumberOfDays(currentHDDGB!, hddNumber: currentNumberOfHDD!, gbPerDay: currentGigaBytesPerDay)
         outputTableView.reloadData()
         println("The current number of days is \(currentNumberOfDays)")
     }
+    
+    @IBAction func resetInputValues(sender: AnyObject) {
+        for var i = 0; i < numberOfComponentsInPickerView(detailPicker); i++ {
+            detailPicker.selectRow(0, inComponent: i, animated: true)
+        }
+        
+        initialiseInputVariables()
+        resetValuesInTableView()
+    }
+    
     
     @IBAction func pressTechnicalTips(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support")!)
     }
     
-    @IBOutlet weak var outputTableView: UITableView!
     
     //declare DVR class
     struct dvr {
@@ -56,7 +65,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     func calculateDataRate(baseRate : Double, resMultiplier : Double) -> Double {
         
         //store current data rate
-        var currentDataRate : Double = currentBaseRate * currentResMultiplier
+        var currentDataRate : Double = currentBaseRate! * currentResMultiplier!
         
         return currentDataRate
     }
@@ -76,7 +85,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     var currentNumberOfDays : Double = 0
     func calculateNumberOfDays (hddSize : Int, hddNumber : Int, gbPerDay : Double) -> Double {
         
-        var numberOfDays = (Double(self.currentHDDGB) * Double(self.currentNumberOfHDD)) / Double(currentGigaBytesPerDay)
+        var numberOfDays = (Double(self.currentHDDGB!) * Double(self.currentNumberOfHDD!)) / Double(currentGigaBytesPerDay)
         return Double(round(100*numberOfDays)/100) //round to 2 decimal places
     }
     
@@ -87,32 +96,32 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     //calculate base rate variables
     let baseRate = [32.0,48.0,96.0,128.0,192.0,224.0,256.0,384.0,448.0,512.0]
-    var currentBaseRate : Double = 32.0
+    var currentBaseRate : Double?
     //calculate res multiplier variables
     let resMultiplier = [0.25,1,2,4,8,20]
-    var currentResMultiplier : Double = 0.25
+    var currentResMultiplier : Double?
     
     
     //resolution variables
-    let arrayResolution = ["1080p","720p","4CIF","2CIF","CIF","QCIF"].reverse()
-    let arrayResolutionNum = [1920*1080,1280*720,704*480,704*240,352*240,176*144].reverse()
-    var currentResolution : Int = 176*144
+    let arrayResolution = ["QCIF","CIF","2CIF","4CIF","720p","1080p"]
+    let arrayResolutionNum = [176*144,352*240,704*240,704*480,1280*720,1920*1080]
+    var currentResolution : Int?
     
     //framerate variables
     let frameRate = [1,2,4,6,8,10,12,16,20,25]
-    var currentFrameRate : Int = 1
+    var currentFrameRate : Int?
     
     //instantiate an instance of dvr
     let alien654:dvr = dvr(modelName: "ALIEN Hero", numberOfChannels: 4)
     
     //HDD size
-    let hddGB = [4,8,16,32,64,128,160,250,320,400,500,640,750,1000,1200,1500,2000,3000,4000,6000]
+    let hddGB : [Int] = [4,8,16,32,64,128,160,250,320,400,500,640,750,1000,1200,1500,2000,3000,4000,6000]
     let hddString = ["4GB","8GB","16GB","32GB","64GB","128GB","160GB","250GB","320GB","400GB","500GB","640GB","750GB","1TB","1.2TB","1.5TB","2TB","3TB","4TB","6TB"]
-    var currentHDDGB : Int = 4
+    var currentHDDGB : Int?
     
     //number of HDD
     let numberOfHDD = [Int](1...8)
-    var currentNumberOfHDD : Int = 1
+    var currentNumberOfHDD : Int?
     
     //number of cameras (using a closure range operator)
     //let numberOfCameras = [Int](1...100)
@@ -181,6 +190,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     
     // Picker view code
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         // Return 4 columns
         return 4
@@ -248,10 +258,25 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     // end picker view code
     
     
+    func initialiseInputVariables() {
+        currentHDDGB = hddGB.first
+        currentBaseRate = baseRate.first
+        currentFrameRate = frameRate.first
+        currentNumberOfHDD = numberOfHDD.first
+        currentResMultiplier = resMultiplier.first
+        currentResolution = arrayResolutionNum.first
+    }
+    
+    func resetValuesInTableView() {
+        currentDataRate = 0
+        currentGigaBytesPerDay = 0
+        currentNumberOfDays = 0
+        outputTableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-         // Do any additional setup after loading the view, typically from a nib.
-        
+        initialiseInputVariables()
     }
         
     
