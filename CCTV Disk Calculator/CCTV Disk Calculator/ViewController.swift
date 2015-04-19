@@ -28,6 +28,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         println("The current number of days is \(currentNumberOfDays)")
     }
     
+//    @IBAction func resetInputValues(sender: AnyObject) {
+//        detailPicker.
+//    }
+    
     @IBAction func pressTechnicalTips(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support")!)
     }
@@ -181,6 +185,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     
     // Picker view code
+    @IBOutlet weak var detailPicker: UIPickerView!
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         // Return 4 columns
         return 4
