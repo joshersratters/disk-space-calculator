@@ -24,8 +24,9 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier!)
         currentGigaBytesPerDay = calculateGigaBytesPerDay(self.stepper.value, dataRate: currentDataRate)
         currentNumberOfDays = calculateNumberOfDays(currentHDDGB!, hddNumber: currentNumberOfHDD!, gbPerDay: currentGigaBytesPerDay)
+        currentNumberOfMonths = calculateNumberOfMonths(self.currentNumberOfMonths)
+        currentNumberOfYears = calculateNumberOfYears(self.currentNumberOfYears)
         outputTableView.reloadData()
-        println("The current number of days is \(currentNumberOfDays)")
     }
     
     @IBAction func resetInputValues(sender: AnyObject) {
@@ -90,8 +91,25 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         return Double(round(100*numberOfDays)/100) //round to 2 decimal places
     }
     
+    //calculate number of months
+    var currentNumberOfMonths : Double = 0
+    func calculateNumberOfMonths(numberOfMonths : Double) -> Double {
+        
+        var numberOfMonths = self.currentNumberOfDays / 30
+        return Double(round(100*numberOfMonths)/100) //round to 2 decimal places
+    }
+    
+    //calculate number of years
+    var currentNumberOfYears : Double = 0
+    func calculateNumberOfYears(numberOfDays : Double) -> Double {
+        var numberOfYears = self.currentNumberOfDays / Double(year)
+        return Double(round(100*numberOfYears)/100) //round to 2 decimal places
+    }
+    
     //DECLARE VARIABLES
     
+    //current date
+    let year : Int = 365
     
     //calculation variables
     
@@ -123,10 +141,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     //number of HDD
     let numberOfHDD = [Int](1...8)
     var currentNumberOfHDD : Int?
-    
-    //number of cameras (using a closure range operator)
-    //let numberOfCameras = [Int](1...100)
-    //var currentNumberOfCameras : Int?
     
     //array of data values
     let arrayValueStrings = ["Data Rate in kb/s","Gigabytes per day","Number of days (Approx)","Number of months (Approx)","Number of years (Approx)"]
@@ -160,6 +174,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             cell.detailTextLabel!.text = currentGigaBytesPerDay.description
         case 2:
             cell.detailTextLabel!.text = currentNumberOfDays.description
+        case 3:
+            cell.detailTextLabel!.text = currentNumberOfMonths.description
+        case 4:
+            cell.detailTextLabel!.text = currentNumberOfYears.description
         default:
             cell.detailTextLabel!.text = 0.description
             
@@ -188,7 +206,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     // end table code
-    
     
     // Picker view code
     
@@ -243,17 +260,17 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             println("FPS value is \(currentFrameRate) and base rate is \(currentBaseRate)")
         case 2:
             currentHDDGB = hddGB[row]
-            println("The current HDD GB value is \(currentHDDGB)")
+            println("The current HDD GB value is \(currentHDDGB!)")
         case 3:
             currentNumberOfHDD = numberOfHDD[row]
-            println("The current number of HDD's is \(currentNumberOfHDD)")
+            println("The current number of HDD's is \(currentNumberOfHDD!)")
         default:
             println("Not sure...")
         }
         
     }
     
-    
+   
     
 
     // end picker view code
@@ -272,6 +289,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         currentDataRate = 0
         currentGigaBytesPerDay = 0
         currentNumberOfDays = 0
+        currentNumberOfMonths = 0
+        currentNumberOfYears = 0
         outputTableView.reloadData()
         stepper.value = 1; currentNumberOfCameras.text = Int(stepper.value).description
     }
