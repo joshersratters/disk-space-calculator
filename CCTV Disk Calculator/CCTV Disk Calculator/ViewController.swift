@@ -58,7 +58,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         }
     }
     
-   
+    //Calculations
+    
     //calculate current data rate
     var currentDataRate : Double = 0
     
@@ -272,6 +273,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         currentGigaBytesPerDay = 0
         currentNumberOfDays = 0
         outputTableView.reloadData()
+        stepper.value = 1; currentNumberOfCameras.text = Int(stepper.value).description
     }
     
     override func viewDidLoad() {
