@@ -12,6 +12,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBAction func stepperValueChanged(sender: UIStepper) {
         currentNumberOfCameras.text = Int(stepper.value).description
+        calculateVariables()
         println("The current stepper value is \(Int(stepper.value))") //stepper value double as int
     }
     
@@ -21,12 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     @IBOutlet weak var outputTableView: UITableView!
 
     @IBAction func calculateVariables(sender: AnyObject) {
-        currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier!)
-        currentGigaBytesPerDay = calculateGigaBytesPerDay(self.stepper.value, dataRate: currentDataRate)
-        currentNumberOfDays = calculateNumberOfDays(currentHDDGB!, hddNumber: currentNumberOfHDD!, gbPerDay: currentGigaBytesPerDay)
-        currentNumberOfMonths = calculateNumberOfMonths(self.currentNumberOfMonths)
-        currentNumberOfYears = calculateNumberOfYears(self.currentNumberOfYears)
-        outputTableView.reloadData()
+        calculateVariables()
     }
     
     @IBAction func resetInputValues(sender: AnyObject) {
@@ -36,6 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         initialiseInputVariables()
         resetValuesInTableView()
+        calculateVariables()
     }
     
     
@@ -60,6 +57,16 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     //Calculations
+    
+    func calculateVariables() {
+        
+        currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier!)
+        currentGigaBytesPerDay = calculateGigaBytesPerDay(self.stepper.value, dataRate: currentDataRate)
+        currentNumberOfDays = calculateNumberOfDays(currentHDDGB!, hddNumber: currentNumberOfHDD!, gbPerDay: currentGigaBytesPerDay)
+        currentNumberOfMonths = calculateNumberOfMonths(self.currentNumberOfMonths)
+        currentNumberOfYears = calculateNumberOfYears(self.currentNumberOfYears)
+        outputTableView.reloadData()
+    }
     
     //calculate current data rate
     var currentDataRate : Double = 0
@@ -254,16 +261,20 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             currentResolution = arrayResolutionNum[row]
             currentResMultiplier = resMultiplier[row]
             println("The current resolution is \(currentResolution) and res multiplier is \(currentResMultiplier)")
+            calculateVariables()
         case 1:
             currentFrameRate = frameRate[row]
             currentBaseRate = baseRate[row]
             println("FPS value is \(currentFrameRate) and base rate is \(currentBaseRate)")
+            calculateVariables()
         case 2:
             currentHDDGB = hddGB[row]
             println("The current HDD GB value is \(currentHDDGB!)")
+            calculateVariables()
         case 3:
             currentNumberOfHDD = numberOfHDD[row]
             println("The current number of HDD's is \(currentNumberOfHDD!)")
+            calculateVariables()
         default:
             println("Not sure...")
         }
@@ -298,6 +309,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         initialiseInputVariables()
+        calculateVariables()
     }
         
     
