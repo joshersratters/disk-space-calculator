@@ -70,50 +70,11 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         outputTableView.reloadData()
     }
     
-    //calculate current data rate
     var currentDataRate : Double = 0
-    
-    func calculateDataRate(baseRate : Double, resMultiplier : Double) -> Double {
-        
-        //store current data rate
-        var currentDataRate : Double = currentBaseRate! * currentResMultiplier!
-        
-        return currentDataRate
-    }
-    
-    //calculate current Gigabytes per day
     var currentGigaBytesPerDay : Double = 0
-    
-    func calculateGigaBytesPerDay(noCameras : Double, dataRate : Double) -> Double {
-       
-        var currentGigaBytesPerDay = stepper.value * ((currentDataRate / 8) * 0.086400)
-        
-        return Double(round(100*currentGigaBytesPerDay)/100) //round to 2 decimal places
-       
-    }
-    
-    //caluclate number of days
     var currentNumberOfDays : Double = 0
-    func calculateNumberOfDays (hddSize : Int, hddNumber : Int, gbPerDay : Double) -> Double {
-        
-        var numberOfDays = (Double(self.currentHDDGB!) * Double(self.currentNumberOfHDD!)) / Double(currentGigaBytesPerDay)
-        return Double(round(100*numberOfDays)/100) //round to 2 decimal places
-    }
-    
-    //calculate number of months
     var currentNumberOfMonths : Double = 0
-    func calculateNumberOfMonths(numberOfMonths : Double) -> Double {
-        
-        var numberOfMonths = self.currentNumberOfDays / 30
-        return Double(round(100*numberOfMonths)/100) //round to 2 decimal places
-    }
-    
-    //calculate number of years
     var currentNumberOfYears : Double = 0
-    func calculateNumberOfYears(numberOfDays : Double) -> Double {
-        var numberOfYears = self.currentNumberOfDays / Double(year)
-        return Double(round(100*numberOfYears)/100) //round to 2 decimal places
-    }
     
     //DECLARE VARIABLES
     
