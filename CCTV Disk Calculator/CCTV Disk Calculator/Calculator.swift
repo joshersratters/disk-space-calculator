@@ -11,17 +11,47 @@ import Foundation
 class Calculator {
     let baseDataRate: Double
     let resolutionMultiplier: Double
-    let numberOfCameras: Int
+    let numberOfCameras: Double
     let hardDriveCapacity: Int
     let numberOfHardDrives: Int
-    let gigabytesPerDay: Double
     
-    init(baseDataRate: Double, resolutionMultiplier: Double, numberOfCameras: Int, hardDriveCapacity: Int, numberOfHardDrives: Int, gigabytesPerDay: Double) {
+    init(baseDataRate: Double, resolutionMultiplier: Double, numberOfCameras: Double, hardDriveCapacity: Int, numberOfHardDrives: Int) {
         self.baseDataRate = baseDataRate
         self.resolutionMultiplier = resolutionMultiplier
         self.numberOfCameras = numberOfCameras
         self.hardDriveCapacity = hardDriveCapacity
         self.numberOfHardDrives = numberOfHardDrives
-        self.gigabytesPerDay = gigabytesPerDay
+    }
+    
+    func getDataRate() -> Double {
+        return baseDataRate * resolutionMultiplier
+    }
+    
+    func getGigabytesPerDay() -> Double {
+        var gigabytesPerDay = numberOfCameras * ((getDataRate() / 8) * 0.086400)
+        gigabytesPerDay = roundDouble(gigabytesPerDay)
+        return gigabytesPerDay
+    }
+    
+    func getNumberOfDays() -> Double {
+        var numberOfDays = (Double(hardDriveCapacity) * Double(numberOfHardDrives)) / Double(getGigabytesPerDay())
+        numberOfDays = roundDouble(numberOfDays)
+        return numberOfDays
+    }
+
+    func getNumberOfMonths() -> Double {
+        var numberOfMonths = getNumberOfDays() / 30
+        numberOfMonths = roundDouble(numberOfMonths)
+        return numberOfMonths
+    }
+    
+    func getNumberOfYears() -> Double {
+        var numberOfYears = getNumberOfDays() / Double(365)
+        numberOfYears = roundDouble(numberOfYears)
+        return numberOfYears
+    }
+    
+    func roundDouble(double: Double) -> Double {
+        return round(100 * double) / 100
     }
 }
