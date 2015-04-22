@@ -10,6 +10,12 @@ import UIKit
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
+    var currentDataRate : Double = 0
+    var currentGigaBytesPerDay : Double = 0
+    var currentNumberOfDays : Double = 0
+    var currentNumberOfMonths : Double = 0
+    var currentNumberOfYears : Double = 0
+    
     @IBAction func stepperValueChanged(sender: UIStepper) {
         currentNumberOfCameras.text = Int(stepper.value).description
         calculateVariables()
@@ -56,8 +62,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         }
     }
     
-    //Calculations
-    
     func calculateVariables() {
         let calculator = Calculator(baseDataRate: currentBaseRate!, resolutionMultiplier: currentResMultiplier!, numberOfCameras: stepper.value, hardDriveCapacity: currentHDDGB!, numberOfHardDrives: currentNumberOfHDD!)
         
@@ -69,12 +73,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         outputTableView.reloadData()
     }
-    
-    var currentDataRate : Double = 0
-    var currentGigaBytesPerDay : Double = 0
-    var currentNumberOfDays : Double = 0
-    var currentNumberOfMonths : Double = 0
-    var currentNumberOfYears : Double = 0
     
     //DECLARE VARIABLES
     
