@@ -59,12 +59,14 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     //Calculations
     
     func calculateVariables() {
+        let calculator = Calculator(baseDataRate: currentBaseRate!, resolutionMultiplier: currentResMultiplier!, numberOfCameras: stepper.value, hardDriveCapacity: currentHDDGB!, numberOfHardDrives: currentNumberOfHDD!)
         
-        currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier!)
-        currentGigaBytesPerDay = calculateGigaBytesPerDay(self.stepper.value, dataRate: currentDataRate)
-        currentNumberOfDays = calculateNumberOfDays(currentHDDGB!, hddNumber: currentNumberOfHDD!, gbPerDay: currentGigaBytesPerDay)
-        currentNumberOfMonths = calculateNumberOfMonths(self.currentNumberOfMonths)
-        currentNumberOfYears = calculateNumberOfYears(self.currentNumberOfYears)
+        currentDataRate = calculator.getDataRate()
+        currentGigaBytesPerDay = calculator.getGigabytesPerDay()
+        currentNumberOfDays = calculator.getNumberOfDays()
+        currentNumberOfMonths = calculator.getNumberOfMonths()
+        currentNumberOfYears = calculator.getNumberOfYears()
+        
         outputTableView.reloadData()
     }
     
