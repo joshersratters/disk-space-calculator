@@ -11,36 +11,43 @@ import MessageUI
 
 class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
+    func configureMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerViewController = MFMailComposeViewController()
+        mailComposerViewController.mailComposeDelegate = self
+        
+        mailComposerViewController.setToRecipients(["joshratcliffe@me.com"])
+        mailComposerViewController.setSubject("App Feedback")
+        mailComposerViewController.setMessageBody("I would like to share the following feedback", isHTML: false)
+        
+        return mailComposerViewController
+    }
+    
+    var mailComposeDelegate : MFMailComposeViewControllerDelegate!
+    
     @IBAction func closeModal(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
    
     @IBAction func feedbackButtonPress(sender: AnyObject) {
         
-        //Send email composition window
-        
-        var toRecipients = ["joshratcliffe@me.com"]
+         let mailComposer : MFMailComposeViewController = configureMailComposeViewController()
         
         //Check to see the device can send email.
         //http://kellyegan.net/sending-files-using-swift/
         if MFMailComposeViewController.canSendMail() {
             
-            let mailComposer : MFMailComposeViewController = MFMailComposeViewController()
+           
             mailComposer.mailComposeDelegate = self
             
-            //Set the subject and message of the email
-            mailComposer.setSubject("Please provide useful feedback!")
-            
-            //set the recipient
-            mailComposer.setToRecipients(toRecipients)
             
             //Open composition window
             self.presentViewController(mailComposer, animated: true, completion: nil)
             
-    }       else {
+        }   else {
             //cannot send email
             println("This device cannot send email")
         }
+        
         
         //Check to see what the user did with the composition window
         func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
