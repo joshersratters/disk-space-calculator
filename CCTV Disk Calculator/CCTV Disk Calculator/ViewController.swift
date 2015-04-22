@@ -10,6 +10,12 @@ import UIKit
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
+    var currentDataRate : Double = 0
+    var currentGigaBytesPerDay : Double = 0
+    var currentNumberOfDays : Double = 0
+    var currentNumberOfMonths : Double = 0
+    var currentNumberOfYears : Double = 0
+    
     @IBAction func stepperValueChanged(sender: UIStepper) {
         currentNumberOfCameras.text = Int(stepper.value).description
         calculateVariables()
@@ -56,61 +62,16 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         }
     }
     
-    //Calculations
-    
     func calculateVariables() {
+        let calculator = Calculator(baseDataRate: currentBaseRate!, resolutionMultiplier: currentResMultiplier!, numberOfCameras: stepper.value, hardDriveCapacity: currentHDDGB!, numberOfHardDrives: currentNumberOfHDD!)
         
-        currentDataRate = calculateDataRate(currentDataRate, resMultiplier: currentResMultiplier!)
-        currentGigaBytesPerDay = calculateGigaBytesPerDay(self.stepper.value, dataRate: currentDataRate)
-        currentNumberOfDays = calculateNumberOfDays(currentHDDGB!, hddNumber: currentNumberOfHDD!, gbPerDay: currentGigaBytesPerDay)
-        currentNumberOfMonths = calculateNumberOfMonths(self.currentNumberOfMonths)
-        currentNumberOfYears = calculateNumberOfYears(self.currentNumberOfYears)
+        currentDataRate = calculator.getDataRate()
+        currentGigaBytesPerDay = calculator.getGigabytesPerDay()
+        currentNumberOfDays = calculator.getNumberOfDays()
+        currentNumberOfMonths = calculator.getNumberOfMonths()
+        currentNumberOfYears = calculator.getNumberOfYears()
+        
         outputTableView.reloadData()
-    }
-    
-    //calculate current data rate
-    var currentDataRate : Double = 0
-    
-    func calculateDataRate(baseRate : Double, resMultiplier : Double) -> Double {
-        
-        //store current data rate
-        var currentDataRate : Double = currentBaseRate! * currentResMultiplier!
-        
-        return currentDataRate
-    }
-    
-    //calculate current Gigabytes per day
-    var currentGigaBytesPerDay : Double = 0
-    
-    func calculateGigaBytesPerDay(noCameras : Double, dataRate : Double) -> Double {
-       
-        var currentGigaBytesPerDay = stepper.value * ((currentDataRate / 8) * 0.086400)
-        
-        return Double(round(100*currentGigaBytesPerDay)/100) //round to 2 decimal places
-       
-    }
-    
-    //caluclate number of days
-    var currentNumberOfDays : Double = 0
-    func calculateNumberOfDays (hddSize : Int, hddNumber : Int, gbPerDay : Double) -> Double {
-        
-        var numberOfDays = (Double(self.currentHDDGB!) * Double(self.currentNumberOfHDD!)) / Double(currentGigaBytesPerDay)
-        return Double(round(100*numberOfDays)/100) //round to 2 decimal places
-    }
-    
-    //calculate number of months
-    var currentNumberOfMonths : Double = 0
-    func calculateNumberOfMonths(numberOfMonths : Double) -> Double {
-        
-        var numberOfMonths = self.currentNumberOfDays / 30
-        return Double(round(100*numberOfMonths)/100) //round to 2 decimal places
-    }
-    
-    //calculate number of years
-    var currentNumberOfYears : Double = 0
-    func calculateNumberOfYears(numberOfDays : Double) -> Double {
-        var numberOfYears = self.currentNumberOfDays / Double(year)
-        return Double(round(100*numberOfYears)/100) //round to 2 decimal places
     }
     
     //DECLARE VARIABLES
