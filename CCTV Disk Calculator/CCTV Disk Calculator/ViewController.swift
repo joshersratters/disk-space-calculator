@@ -30,10 +30,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     @IBOutlet weak var currentNumberOfCameras: UILabel!
     @IBOutlet weak var detailPicker: UIPickerView!
     @IBOutlet weak var outputTableView: UITableView!
-
-    @IBAction func calculateVariables(sender: AnyObject) {
-        calculateVariables()
-    }
     
     @IBAction func resetInputValues(sender: AnyObject) {
         for var i = 0; i < numberOfComponentsInPickerView(detailPicker); i++ {

@@ -130,11 +130,6 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="KPU-lZ-aZ4"/>
-                        <barButtonItem title="Calculate" id="Fk6-Na-dKD">
-                            <connections>
-                                <action selector="calculateVariables:" destination="vXZ-lx-hvc" id="ENJ-Jz-4S5"/>
-                            </connections>
-                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Calculator" id="HA7-q9-lzB">
                         <barButtonItem key="leftBarButtonItem" title="About" id="hAq-HB-aGu">
