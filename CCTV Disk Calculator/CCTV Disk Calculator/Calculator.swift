@@ -24,7 +24,8 @@ class Calculator {
     }
     
     func getDataRate() -> Double {
-        return baseDataRate * resolutionMultiplier
+        var dataRate = baseDataRate * resolutionMultiplier
+        return dataRate
     }
     
     func getGigabytesPerDay() -> Double {

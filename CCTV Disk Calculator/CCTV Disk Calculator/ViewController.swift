@@ -10,6 +10,9 @@ import UIKit
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
+    //DECLARE VARIABLE
+    var dataValues = ConstantVariables()
+    
     var currentDataRate : Double = 0
     var currentGigaBytesPerDay : Double = 0
     var currentNumberOfDays : Double = 0
@@ -18,6 +21,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     @IBAction func stepperValueChanged(sender: UIStepper) {
         currentNumberOfCameras.text = Int(stepper.value).description
+        
         calculateVariables()
         println("The current stepper value is \(Int(stepper.value))") //stepper value double as int
     }
@@ -47,23 +51,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     
-    //declare DVR class
-    struct dvr {
-        //properties
-        let modelName : String, numberOfChannels : Int
-       
-        
-        
-        //initialise
-        init (modelName: String, numberOfChannels: Int) {
-            self.modelName = modelName
-            self.numberOfChannels = numberOfChannels
-            
-        }
-    }
-    
     func calculateVariables() {
-        let calculator = Calculator(baseDataRate: currentBaseRate!, resolutionMultiplier: currentResMultiplier!, numberOfCameras: stepper.value, hardDriveCapacity: currentHDDGB!, numberOfHardDrives: currentNumberOfHDD!)
+        let calculator = Calculator(baseDataRate: dataValues.currentBaseRate!, resolutionMultiplier: dataValues.currentResMultiplier!, numberOfCameras: stepper.value, hardDriveCapacity: dataValues.currentHDDGB!, numberOfHardDrives: dataValues.currentNumberOfHDD!)
         
         currentDataRate = calculator.getDataRate()
         currentGigaBytesPerDay = calculator.getGigabytesPerDay()
@@ -71,50 +60,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         currentNumberOfMonths = calculator.getNumberOfMonths()
         currentNumberOfYears = calculator.getNumberOfYears()
         
+      
+        
         outputTableView.reloadData()
     }
-    
-    //DECLARE VARIABLES
-    
-    //current date
-    let year : Int = 365
-    
-    //calculation variables
-    
-    //calculate base rate variables
-    let baseRate = [32.0,48.0,96.0,128.0,192.0,224.0,256.0,384.0,448.0,512.0]
-    var currentBaseRate : Double?
-    //calculate res multiplier variables
-    let resMultiplier = [0.25,1,2,4,8,20]
-    var currentResMultiplier : Double?
-    
-    
-    //resolution variables
-    let arrayResolution = ["QCIF","CIF","2CIF","4CIF","720p","1080p"]
-    let arrayResolutionNum = [176*144,352*240,704*240,704*480,1280*720,1920*1080]
-    var currentResolution : Int?
-    
-    //framerate variables
-    let frameRate = [1,2,4,6,8,10,12,16,20,25]
-    var currentFrameRate : Int?
-    
-    //instantiate an instance of dvr
-    let alien654:dvr = dvr(modelName: "ALIEN Hero", numberOfChannels: 4)
-    
-    //HDD size
-    let hddGB : [Int] = [4,8,16,32,64,128,160,250,320,400,500,640,750,1000,1200,1500,2000,3000,4000,6000]
-    let hddString = ["4GB","8GB","16GB","32GB","64GB","128GB","160GB","250GB","320GB","400GB","500GB","640GB","750GB","1TB","1.2TB","1.5TB","2TB","3TB","4TB","6TB"]
-    var currentHDDGB : Int?
-    
-    //number of HDD
-    let numberOfHDD = [Int](1...8)
-    var currentNumberOfHDD : Int?
-    
-    //array of data values
-    let arrayValueStrings = ["Data Rate in kb/s","Gigabytes per day","Number of days (Approx)","Number of months (Approx)","Number of years (Approx)"]
-    
-   
-    
     
     // Table section
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -124,7 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            return arrayValueStrings.count
+            return dataValues.ValueStrings.count
         } else {
             return section
         }
@@ -152,7 +101,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         }
         
         if indexPath.section == 0 {
-            let valueStrings = arrayValueStrings[indexPath.row]
+            let valueStrings = dataValues.ValueStrings[indexPath.row]
             cell.textLabel?.text = valueStrings
         } else if indexPath.section == 1 {
             return cell
@@ -187,13 +136,13 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         switch component {
         case 0:
-            return self.arrayResolution.count
+            return ConstantVariables().resolution.count
         case 1:
-            return self.frameRate.count
+            return ConstantVariables().frameRate.count
         case 2:
-            return self.hddGB.count
+            return ConstantVariables().hddGB.count
         case 3:
-            return numberOfHDD.count
+            return ConstantVariables().numberOfHDD.count
         default:
             return 0
         }
@@ -203,13 +152,13 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         switch component {
         case 0:
-            return self.arrayResolution[row]
+            return ConstantVariables().resolution[row].0
         case 1:
-            return " \(self.frameRate[row].description) fps"
+            return " \(ConstantVariables().frameRate[row].description) fps"
         case 2:
-            return self.hddString[row]
+            return ConstantVariables().hddGB[row].0
         case 3:
-            return "\(self.numberOfHDD[row]) HDD"
+            return "\(self.dataValues.numberOfHDD[row]) HDD"
         default:
             return nil
         }
@@ -219,42 +168,38 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
   
         switch component {
         case 0:
-            currentResolution = arrayResolutionNum[row]
-            currentResMultiplier = resMultiplier[row]
-            println("The current resolution is \(currentResolution) and res multiplier is \(currentResMultiplier)")
+            dataValues.currentResolution = ConstantVariables().resolution[row].1
+            dataValues.currentResMultiplier = ConstantVariables().resMultiplier[row]
+            println("The current resolution is \(dataValues.currentResolution) and res multiplier is \(dataValues.currentResMultiplier)")
             calculateVariables()
         case 1:
-            currentFrameRate = frameRate[row]
-            currentBaseRate = baseRate[row]
-            println("FPS value is \(currentFrameRate) and base rate is \(currentBaseRate)")
+            dataValues.currentFrameRate = ConstantVariables().frameRate[row]
+            dataValues.currentBaseRate = ConstantVariables().baseRate[row]
+            println("FPS value is \(dataValues.currentFrameRate) and base rate is \(dataValues.currentBaseRate)")
             calculateVariables()
         case 2:
-            currentHDDGB = hddGB[row]
-            println("The current HDD GB value is \(currentHDDGB!)")
+            dataValues.currentHDDGB = ConstantVariables().hddGB[row].1
+            println("The current HDD GB value is \(dataValues.currentHDDGB)")
             calculateVariables()
         case 3:
-            currentNumberOfHDD = numberOfHDD[row]
-            println("The current number of HDD's is \(currentNumberOfHDD!)")
+            dataValues.currentNumberOfHDD = ConstantVariables().numberOfHDD[row]
+            println("The current number of HDD's is \(dataValues.currentNumberOfHDD)")
             calculateVariables()
         default:
             println("Not sure...")
         }
         
     }
-    
-   
-    
-
-    // end picker view code
+    //end picker view code
     
     
     func initialiseInputVariables() {
-        currentHDDGB = hddGB.first
-        currentBaseRate = baseRate.first
-        currentFrameRate = frameRate.first
-        currentNumberOfHDD = numberOfHDD.first
-        currentResMultiplier = resMultiplier.first
-        currentResolution = arrayResolutionNum.first
+        dataValues.currentHDDGB = ConstantVariables().hddGB.first!.1
+        dataValues.currentBaseRate = ConstantVariables().baseRate.first
+        dataValues.currentFrameRate = ConstantVariables().frameRate.first
+        dataValues.currentNumberOfHDD = ConstantVariables().numberOfHDD.first
+        dataValues.currentResMultiplier = ConstantVariables().resMultiplier.first
+        dataValues.currentResolution = ConstantVariables().resolution.first!.1
     }
     
     func resetValuesInTableView() {
