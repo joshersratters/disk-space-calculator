@@ -21,9 +21,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     @IBAction func stepperValueChanged(sender: UIStepper) {
         currentNumberOfCameras.text = Int(stepper.value).description
-        
         calculateVariables()
-        println("The current stepper value is \(Int(stepper.value))") //stepper value double as int
     }
     
     @IBOutlet weak var stepper: UIStepper!
@@ -110,7 +108,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "CALCULATIONS"
+            return "Calculations"
         } else if section == 1 {
             return "Metrics"
         } else {
@@ -166,23 +164,19 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         case 0:
             dataValues.currentResolution = ConstantVariables().resolution[row].1
             dataValues.currentResMultiplier = ConstantVariables().resMultiplier[row]
-            println("The current resolution is \(dataValues.currentResolution) and res multiplier is \(dataValues.currentResMultiplier)")
             calculateVariables()
         case 1:
             dataValues.currentFrameRate = ConstantVariables().frameRate[row]
             dataValues.currentBaseRate = ConstantVariables().baseRate[row]
-            println("FPS value is \(dataValues.currentFrameRate) and base rate is \(dataValues.currentBaseRate)")
             calculateVariables()
         case 2:
             dataValues.currentHDDGB = ConstantVariables().hddGB[row].1
-            println("The current HDD GB value is \(dataValues.currentHDDGB)")
             calculateVariables()
         case 3:
             dataValues.currentNumberOfHDD = ConstantVariables().numberOfHDD[row]
-            println("The current number of HDD's is \(dataValues.currentNumberOfHDD)")
             calculateVariables()
         default:
-            println("Not sure...")
+           break
         }
         
     }
