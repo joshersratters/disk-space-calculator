@@ -10,98 +10,113 @@ import UIKit
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
-    //DECLARE VARIABLE
-    var dataValues = ConstantVariables()
+    var numberOfHardDrives: Int = 0
+    var hardDriveCapacity: Int = 0
+    var frameRate: Int = 0
+    var resolution: Int = 0
+    var resolutionMultiplier: Double = 0
+    var baseDataRate: Double = 0
     
-    var currentDataRate : Double = 0
-    var currentGigaBytesPerDay : Double = 0
-    var currentNumberOfDays : Double = 0
-    var currentNumberOfMonths : Double = 0
-    var currentNumberOfYears : Double = 0
+    var dataRate: Double = 0
+    var gigabytesPerDay: Double = 0
+    var numberOfDays: Double = 0
+    var numberOfMonths: Double = 0
+    var numberOfYears: Double = 0
     
-    @IBAction func stepperValueChanged(sender: UIStepper) {
-        currentNumberOfCameras.text = Int(stepper.value).description
-        calculateVariables()
-    }
     
     @IBOutlet weak var stepper: UIStepper!
-    @IBOutlet weak var currentNumberOfCameras: UILabel!
+    @IBOutlet weak var currentNumberOfCamerasLabel: UILabel!
     @IBOutlet weak var detailPicker: UIPickerView!
     @IBOutlet weak var outputTableView: UITableView!
+    
     
     @IBAction func resetInputValues(sender: AnyObject) {
         for var i = 0; i < numberOfComponentsInPickerView(detailPicker); i++ {
             detailPicker.selectRow(0, inComponent: i, animated: true)
         }
         
+        stepper.value = 1; currentNumberOfCamerasLabel.text = (Int(stepper.value)).description
         initialiseInputVariables()
-        resetValuesInTableView()
-        calculateVariables()
+        calculate()
     }
     
-    
-    @IBAction func pressTechnicalTips(sender: AnyObject) {
+    @IBAction func displayTechnicalTips(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support")!)
     }
     
+    @IBAction func stepperValueChanged(sender: UIStepper) {
+        currentNumberOfCamerasLabel.text = (Int(stepper.value)).description
+        calculate()
+    }
     
-    func calculateVariables() {
-        let calculator = Calculator(baseDataRate: dataValues.currentBaseRate!, resolutionMultiplier: dataValues.currentResMultiplier!, numberOfCameras: stepper.value, hardDriveCapacity: dataValues.currentHDDGB!, numberOfHardDrives: dataValues.currentNumberOfHDD!)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initialiseInputVariables()
+        calculate()
+    }
+    
+    
+    func initialiseInputVariables() {
+        hardDriveCapacity = Constants().hardDriveCapacities.first!.int
+        baseDataRate = Constants().baseDataRates.first!
+        frameRate = Constants().frameRates.first!
+        numberOfHardDrives = Constants().numberOfHardDrives.first!
+        resolutionMultiplier = Constants().resolutionMultipliers.first!
+        resolution = Constants().resolutions.first!.value
+    }
+    
+    func calculate() {
+        let calculator = Calculator(baseDataRate: baseDataRate, resolutionMultiplier: resolutionMultiplier, numberOfCameras: stepper.value, hardDriveCapacity: hardDriveCapacity, numberOfHardDrives: numberOfHardDrives)
         
-        currentDataRate = calculator.getDataRate()
-        currentGigaBytesPerDay = calculator.getGigabytesPerDay()
-        currentNumberOfDays = calculator.getNumberOfDays()
-        currentNumberOfMonths = calculator.getNumberOfMonths()
-        currentNumberOfYears = calculator.getNumberOfYears()
-        
-      
+        dataRate = calculator.getDataRate()
+        gigabytesPerDay = calculator.getGigabytesPerDay()
+        numberOfDays = calculator.getNumberOfDays()
+        numberOfMonths = calculator.getNumberOfMonths()
+        numberOfYears = calculator.getNumberOfYears()
         
         outputTableView.reloadData()
     }
     
-    // Table section
+    
+    // Begin UITableView Code
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if section == 0 {
-            return dataValues.ValueStrings.count
+            return Constants().tableViewTitles.count
         } else {
             return section
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         
-        //Put particular row detail text to a variable
+        // Set row detail text to relevant variable
         switch indexPath.row {
         case 0:
-            cell.detailTextLabel!.text = currentDataRate.description
+            cell.detailTextLabel!.text = dataRate.description
         case 1:
-            cell.detailTextLabel!.text = currentGigaBytesPerDay.description
+            cell.detailTextLabel!.text = gigabytesPerDay.description
         case 2:
-            cell.detailTextLabel!.text = currentNumberOfDays.description
+            cell.detailTextLabel!.text = numberOfDays.description
         case 3:
-            cell.detailTextLabel!.text = currentNumberOfMonths.description
+            cell.detailTextLabel!.text = numberOfMonths.description
         case 4:
-            cell.detailTextLabel!.text = currentNumberOfYears.description
+            cell.detailTextLabel!.text = numberOfYears.description
         default:
             cell.detailTextLabel!.text = 0.description
-            
         }
         
         if indexPath.section == 0 {
-            let valueStrings = dataValues.ValueStrings[indexPath.row]
-            cell.textLabel?.text = valueStrings
+            let cellTitles = Constants().tableViewTitles[indexPath.row]
+            cell.textLabel?.text = cellTitles
         } else if indexPath.section == 1 {
             return cell
-            
         }
-        
        
         return cell
     }
@@ -115,28 +130,25 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             return nil
         }
     }
+    // End UITableView Code
     
-    // end table code
     
-    // Picker view code
-    
+    // Begin UIPickerView Code
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        // Return 4 columns
         return 4
-        
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         switch component {
         case 0:
-            return ConstantVariables().resolution.count
+            return Constants().resolutions.count
         case 1:
-            return ConstantVariables().frameRate.count
+            return Constants().frameRates.count
         case 2:
-            return ConstantVariables().hddGB.count
+            return Constants().hardDriveCapacities.count
         case 3:
-            return ConstantVariables().numberOfHDD.count
+            return Constants().numberOfHardDrives.count
         default:
             return 0
         }
@@ -146,13 +158,13 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         switch component {
         case 0:
-            return ConstantVariables().resolution[row].0
+            return Constants().resolutions[row].name
         case 1:
-            return " \(ConstantVariables().frameRate[row].description) fps"
+            return " \(Constants().frameRates[row].description) fps"
         case 2:
-            return ConstantVariables().hddGB[row].0
+            return Constants().hardDriveCapacities[row].string
         case 3:
-            return "\(self.dataValues.numberOfHDD[row]) HDD"
+            return "\(Constants().numberOfHardDrives[row]) HDD"
         default:
             return nil
         }
@@ -162,60 +174,23 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
   
         switch component {
         case 0:
-            dataValues.currentResolution = ConstantVariables().resolution[row].1
-            dataValues.currentResMultiplier = ConstantVariables().resMultiplier[row]
-            calculateVariables()
+            resolution = Constants().resolutions[row].value
+            resolutionMultiplier = Constants().resolutionMultipliers[row]
+            calculate()
         case 1:
-            dataValues.currentFrameRate = ConstantVariables().frameRate[row]
-            dataValues.currentBaseRate = ConstantVariables().baseRate[row]
-            calculateVariables()
+            frameRate = Constants().frameRates[row]
+            baseDataRate = Constants().baseDataRates[row]
+            calculate()
         case 2:
-            dataValues.currentHDDGB = ConstantVariables().hddGB[row].1
-            calculateVariables()
+            hardDriveCapacity = Constants().hardDriveCapacities[row].int
+            calculate()
         case 3:
-            dataValues.currentNumberOfHDD = ConstantVariables().numberOfHDD[row]
-            calculateVariables()
+            numberOfHardDrives = Constants().numberOfHardDrives[row]
+            calculate()
         default:
            break
         }
-        
     }
-    //end picker view code
-    
-    
-    func initialiseInputVariables() {
-        dataValues.currentHDDGB = ConstantVariables().hddGB.first!.1
-        dataValues.currentBaseRate = ConstantVariables().baseRate.first
-        dataValues.currentFrameRate = ConstantVariables().frameRate.first
-        dataValues.currentNumberOfHDD = ConstantVariables().numberOfHDD.first
-        dataValues.currentResMultiplier = ConstantVariables().resMultiplier.first
-        dataValues.currentResolution = ConstantVariables().resolution.first!.1
-    }
-    
-    func resetValuesInTableView() {
-        currentDataRate = 0
-        currentGigaBytesPerDay = 0
-        currentNumberOfDays = 0
-        currentNumberOfMonths = 0
-        currentNumberOfYears = 0
-        outputTableView.reloadData()
-        stepper.value = 1; currentNumberOfCameras.text = Int(stepper.value).description
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        initialiseInputVariables()
-        calculateVariables()
-    }
-        
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-
+    // End UIPickerView Code
 }
 

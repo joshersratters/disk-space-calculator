@@ -15,6 +15,7 @@ class Calculator {
     let hardDriveCapacity: Int
     let numberOfHardDrives: Int
     
+    
     init(baseDataRate: Double, resolutionMultiplier: Double, numberOfCameras: Double, hardDriveCapacity: Int, numberOfHardDrives: Int) {
         self.baseDataRate = baseDataRate
         self.resolutionMultiplier = resolutionMultiplier
@@ -22,6 +23,7 @@ class Calculator {
         self.hardDriveCapacity = hardDriveCapacity
         self.numberOfHardDrives = numberOfHardDrives
     }
+    
     
     func getDataRate() -> Double {
         var dataRate = baseDataRate * resolutionMultiplier
