@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1BF8B4201AE7C44B00C5B7D7 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF8B41F1AE7C44B00C5B7D7 /* Calculator.swift */; };
 		2657183D1AE9592A00782348 /* CurrentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2657183C1AE9592A00782348 /* CurrentValues.swift */; };
+		2657183F1AE9A20600782348 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2657183E1AE9A20600782348 /* WebViewController.swift */; };
 		268908B41AE84C8A0043FA5E /* DigitalVideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268908B31AE84C8A0043FA5E /* DigitalVideoRecorder.swift */; };
 		26C2C2921AC86FC50058A344 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2C2911AC86FC50058A344 /* AppDelegate.swift */; };
 		26C2C2941AC86FC50058A344 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2C2931AC86FC50058A344 /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		1BF8B41F1AE7C44B00C5B7D7 /* Calculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		2657183C1AE9592A00782348 /* CurrentValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentValues.swift; sourceTree = "<group>"; };
+		2657183E1AE9A20600782348 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		268908B31AE84C8A0043FA5E /* DigitalVideoRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitalVideoRecorder.swift; sourceTree = "<group>"; };
 		26C2C28C1AC86FC50058A344 /* CCTV Disk Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCTV Disk Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C2C2901AC86FC50058A344 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			children = (
 				26C2C2931AC86FC50058A344 /* ViewController.swift */,
 				26CFBC521AD5DD80008436BD /* AboutViewController.swift */,
+				2657183E1AE9A20600782348 /* WebViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				2657183D1AE9592A00782348 /* CurrentValues.swift in Sources */,
 				1BF8B4201AE7C44B00C5B7D7 /* Calculator.swift in Sources */,
 				268908B41AE84C8A0043FA5E /* DigitalVideoRecorder.swift in Sources */,
+				2657183F1AE9A20600782348 /* WebViewController.swift in Sources */,
 				26C2C2941AC86FC50058A344 /* ViewController.swift in Sources */,
 				26C2C2921AC86FC50058A344 /* AppDelegate.swift in Sources */,
 			);

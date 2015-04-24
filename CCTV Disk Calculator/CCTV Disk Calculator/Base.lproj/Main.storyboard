@@ -124,12 +124,17 @@
                         </variation>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Reset" id="PqS-p7-yt2">
+                        <barButtonItem title="Technical Tips" id="hFW-0L-wmQ">
                             <connections>
-                                <action selector="resetInputValues:" destination="vXZ-lx-hvc" id="kHv-3P-QxP"/>
+                                <action selector="pressTechnicalTips:" destination="vXZ-lx-hvc" id="imc-Su-hA0"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="KPU-lZ-aZ4"/>
+                        <barButtonItem title="Technical Tips Web" id="Z8H-yK-5n6">
+                            <connections>
+                                <segue destination="5VZ-Xm-Whg" kind="presentation" id="Yig-P8-i8b"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Calculator" id="HA7-q9-lzB">
                         <barButtonItem key="leftBarButtonItem" title="About" id="hAq-HB-aGu">
@@ -137,9 +142,9 @@
                                 <segue destination="UgJ-Vh-a48" kind="presentation" id="OYZ-ex-L7G"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Technical Tips" id="hFW-0L-wmQ">
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="PqS-p7-yt2">
                             <connections>
-                                <action selector="pressTechnicalTips:" destination="vXZ-lx-hvc" id="imc-Su-hA0"/>
+                                <action selector="resetInputValues:" destination="vXZ-lx-hvc" id="kHv-3P-QxP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -207,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUm-gg-dyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2446.5" y="92.25"/>
+            <point key="canvasLocation" x="1702.5" y="842"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PSs-w8-kC7">
@@ -230,6 +235,45 @@
             </objects>
             <point key="canvasLocation" x="-180" y="92.25"/>
         </scene>
+        <!--WebView-->
+        <scene sceneID="gPF-Ng-M6u">
+            <objects>
+                <viewController title="WebView" id="5VZ-Xm-Whg" customClass="WebViewController" customModule="CCTV_Disk_Calculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5eZ-Zi-bOB"/>
+                        <viewControllerLayoutGuide type="bottom" id="uVn-S7-lAd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PMs-oo-sd3" customClass="MasterView">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ve-6U-ok0">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                                </variation>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="2ve-6U-ok0"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="2ve-6U-ok0"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="viewWeb" destination="2ve-6U-ok0" id="0oR-s9-PiV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bhg-5h-nf1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-111" y="842"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="r85-iO-VPg">
             <objects>
@@ -249,7 +293,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CLT-7H-qw1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528.5" y="92.25"/>
+            <point key="canvasLocation" x="837" y="842"/>
         </scene>
     </scenes>
 </document>
