@@ -25,7 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     
     @IBOutlet weak var stepper: UIStepper!
-    @IBOutlet weak var currentNumberOfCamerasLabel: UILabel!
+    @IBOutlet weak var numberOfCamerasLabel: UILabel!
     @IBOutlet weak var detailPicker: UIPickerView!
     @IBOutlet weak var outputTableView: UITableView!
     
@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             detailPicker.selectRow(0, inComponent: i, animated: true)
         }
         
-        stepper.value = 1; currentNumberOfCamerasLabel.text = (Int(stepper.value)).description
+        stepper.value = 1; numberOfCamerasLabel.text = (Int(stepper.value)).description
         initialiseInputVariables()
         calculate()
     }
@@ -45,7 +45,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     @IBAction func stepperValueChanged(sender: UIStepper) {
-        currentNumberOfCamerasLabel.text = (Int(stepper.value)).description
+        numberOfCamerasLabel.text = (Int(stepper.value)).description
         calculate()
     }
     
