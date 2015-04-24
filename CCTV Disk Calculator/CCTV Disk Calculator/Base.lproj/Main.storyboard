@@ -149,8 +149,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="currentNumberOfCamerasLabel" destination="A2N-HU-NcZ" id="bsZ-Lj-DHn"/>
                         <outlet property="detailPicker" destination="XHy-dT-rPy" id="qu8-Jy-ko4"/>
+                        <outlet property="numberOfCamerasLabel" destination="A2N-HU-NcZ" id="qbr-Rl-RBf"/>
                         <outlet property="outputTableView" destination="Urw-MG-i3k" id="HUm-VO-FWt"/>
                         <outlet property="stepper" destination="KDj-iQ-fx7" id="fIj-jr-bVc"/>
                     </connections>
