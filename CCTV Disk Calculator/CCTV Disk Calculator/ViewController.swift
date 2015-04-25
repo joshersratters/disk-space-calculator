@@ -31,11 +31,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     
     @IBAction func resetInputValues(sender: AnyObject) {
-        for var i = 0; i < numberOfComponentsInPickerView(detailPicker); i++ {
-            detailPicker.selectRow(0, inComponent: i, animated: true)
-        }
-        
-        stepper.value = 1; numberOfCamerasLabel.text = (Int(stepper.value)).description
         initialiseInputVariables()
         calculate()
     }
@@ -56,14 +51,32 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         calculate()
     }
     
-    
     func initialiseInputVariables() {
-        hardDriveCapacity = Constants().hardDriveCapacities.first!.int
-        baseDataRate = Constants().baseDataRates.first!
-        frameRate = Constants().frameRates.first!
-        numberOfHardDrives = Constants().numberOfHardDrives.first!
-        resolutionMultiplier = Constants().resolutionMultipliers.first!
-        resolution = Constants().resolutions.first!.value
+        for var componentIndex = 0; componentIndex < detailPicker.numberOfComponents; componentIndex++ {
+            var rowIndex: Int
+            
+            switch componentIndex {
+            case 0:
+                rowIndex = 3
+                resolution = Constants().resolutions[rowIndex].value
+                resolutionMultiplier = Constants().resolutionMultipliers[rowIndex]
+            case 1:
+                rowIndex = 6
+                frameRate = Constants().frameRates[rowIndex]
+                baseDataRate = Constants().baseDataRates[rowIndex]
+            case 2:
+                rowIndex = 0
+                hardDriveCapacity = Constants().hardDriveCapacities[rowIndex].int
+            case 3:
+                rowIndex = 0
+                numberOfHardDrives = Constants().numberOfHardDrives[rowIndex]
+            default: rowIndex = 0
+            }
+            
+            detailPicker.selectRow(rowIndex, inComponent: componentIndex, animated: true)
+        }
+        
+        stepper.value = 4; numberOfCamerasLabel.text = (Int(stepper.value)).description
     }
     
     func calculate() {
@@ -139,7 +152,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
         switch component {
         case 0:
             return Constants().resolutions.count
@@ -155,7 +167,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        
         switch component {
         case 0:
             return Constants().resolutions[row].name
@@ -171,7 +182,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-  
         switch component {
         case 0:
             resolution = Constants().resolutions[row].value
