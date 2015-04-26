@@ -11,19 +11,6 @@ import MessageUI
 
 class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
-    func configureMailComposeViewController() -> MFMailComposeViewController {
-        let mailComposerViewController = MFMailComposeViewController()
-        mailComposerViewController.mailComposeDelegate = self
-        
-        mailComposerViewController.setToRecipients(["support@systemq.com"])
-        mailComposerViewController.setSubject("Alien Calculator Feedback")
-        mailComposerViewController.setMessageBody("I would like to share the following feedback", isHTML: false)
-        
-        return mailComposerViewController
-    }
-    
-    var mailComposeDelegate : MFMailComposeViewControllerDelegate!
-    
     @IBAction func alienLogoPress(sender: UITapGestureRecognizer) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com")!)
     }
@@ -33,64 +20,48 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
    
     @IBAction func feedbackButtonPress(sender: AnyObject) {
-        
-         let mailComposer : MFMailComposeViewController = configureMailComposeViewController()
-        
-        //Check to see the device can send email.
-        //http://kellyegan.net/sending-files-using-swift/
+        let mailComposeViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
-            
-           
-            mailComposer.mailComposeDelegate = self
-            
-            
-            //Open composition window
-            self.presentViewController(mailComposer, animated: true, completion: nil)
-            
-        }   else {
-            //cannot send email
-            println("This device cannot send email")
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
         }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
         
+        mailComposerVC.setToRecipients(["joshua.ratcliffe@systemq.com"])
+        mailComposerVC.setSubject("Alien Calculator Feedback")
+        mailComposerVC.setMessageBody("I would like to share the following feedback", isHTML: false)
         
-        //Check to see what the user did with the composition window
-        func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
-            
-            switch result.value {
-                
-            case MFMailComposeResultSent.value:
-                println("You sent the email.")
-        
-            case MFMailComposeResultSaved.value:
-                println("You saved a draft of this email.")
-                
-            case MFMailComposeResultCancelled.value:
-                println("You cancelled sending this email.")
-                
-            case MFMailComposeResultFailed.value:
-                println("Mail failed:  An error occurred when trying to compose this email")
-            
-            default:
-                break
-            }
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-            
-        }
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
     
 
 
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+     func viewDidLoad() {
+        viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+     func didReceiveMemoryWarning() {
+        didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
@@ -106,4 +77,4 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
     //}
     
 
-}
+
