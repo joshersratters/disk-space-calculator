@@ -24,6 +24,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     var numberOfYears: Double = 0
     
     
+    @IBOutlet weak var hardDiskStepper: UIStepper!
+    @IBOutlet weak var numberOfHardDrivesLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var numberOfCamerasLabel: UILabel!
     @IBOutlet weak var detailPicker: UIPickerView!
@@ -44,6 +46,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         calculate()
     }
     
+    @IBAction func hardDiskStepperValueChanged(sender: AnyObject) {
+        numberOfHardDrivesLabel.text = (Int(hardDiskStepper.value)).description
+        calculate()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +73,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             case 2:
                 rowIndex = 0
                 hardDriveCapacity = Constants().hardDriveCapacities[rowIndex].int
-            case 3:
-                rowIndex = 0
-                numberOfHardDrives = Constants().numberOfHardDrives[rowIndex]
             default: rowIndex = 0
             }
             
@@ -77,10 +80,11 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         }
         
         stepper.value = 4; numberOfCamerasLabel.text = (Int(stepper.value)).description
+        hardDiskStepper.value = 1; numberOfHardDrivesLabel.text = (Int(hardDiskStepper.value)).description
     }
     
     func calculate() {
-        let calculator = Calculator(baseDataRate: baseDataRate, resolutionMultiplier: resolutionMultiplier, numberOfCameras: stepper.value, hardDriveCapacity: hardDriveCapacity, numberOfHardDrives: numberOfHardDrives)
+        let calculator = Calculator(baseDataRate: baseDataRate, resolutionMultiplier: resolutionMultiplier, numberOfCameras: stepper.value, hardDriveCapacity: hardDriveCapacity, numberOfHardDrives: (Int(hardDiskStepper.value)))
         
         dataRate = calculator.getDataRate()
         gigabytesPerDay = calculator.getGigabytesPerDay()
@@ -148,7 +152,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     
     // Begin UIPickerView Code
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 4
+        return 3
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -159,8 +163,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             return Constants().frameRates.count
         case 2:
             return Constants().hardDriveCapacities.count
-        case 3:
-            return Constants().numberOfHardDrives.count
         default:
             return 0
         }
@@ -174,8 +176,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             return " \(Constants().frameRates[row].description) fps"
         case 2:
             return Constants().hardDriveCapacities[row].string
-        case 3:
-            return "\(Constants().numberOfHardDrives[row]) HDD"
         default:
             return nil
         }
@@ -193,9 +193,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             calculate()
         case 2:
             hardDriveCapacity = Constants().hardDriveCapacities[row].int
-            calculate()
-        case 3:
-            numberOfHardDrives = Constants().numberOfHardDrives[row]
             calculate()
         default:
            break
