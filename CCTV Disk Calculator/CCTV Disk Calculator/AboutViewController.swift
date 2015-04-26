@@ -15,14 +15,18 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
         let mailComposerViewController = MFMailComposeViewController()
         mailComposerViewController.mailComposeDelegate = self
         
-        mailComposerViewController.setToRecipients(["joshratcliffe@me.com"])
-        mailComposerViewController.setSubject("App Feedback")
+        mailComposerViewController.setToRecipients(["support@systemq.com"])
+        mailComposerViewController.setSubject("Alien Calculator Feedback")
         mailComposerViewController.setMessageBody("I would like to share the following feedback", isHTML: false)
         
         return mailComposerViewController
     }
     
     var mailComposeDelegate : MFMailComposeViewControllerDelegate!
+    
+    @IBAction func alienLogoPress(sender: UITapGestureRecognizer) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com")!)
+    }
     
     @IBAction func closeModal(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
