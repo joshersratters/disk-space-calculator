@@ -42,13 +42,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lb6-Z7-BT7">
                                                 <rect key="frame" x="102" y="4" width="10" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hard Drives" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeS-tg-77V">
                                                 <rect key="frame" x="0.0" y="4" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -215,21 +215,34 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This software is provided as-is for free use without warranty or otherwise" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfS-XH-gmv">
-                                <rect key="frame" x="16" y="523" width="568" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="This software is provided as-is for free use without warranty or otherwise" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfS-XH-gmv">
+                                <rect key="frame" x="16" y="515" width="568" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nitedevillogodemo" translatesAutoresizingMaskIntoConstraints="NO" id="8lH-LN-Oz2">
+                                <rect key="frame" x="202" y="344" width="196" height="151"/>
+                                <accessibility key="accessibilityConfiguration" label="Nite Devil Logo">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="196" id="LPV-XP-LsX"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="xr6-ys-71f" appends="YES" id="BGE-WY-klN"/>
+                                </connections>
+                            </imageView>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="alien_dvr_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ixF-EM-M94" userLabel="Alien DVR Image">
-                                <rect key="frame" x="174" y="189" width="252" height="177"/>
+                                <rect key="frame" x="174" y="152" width="252" height="177"/>
                                 <accessibility key="accessibilityConfiguration" label="Alien DVR Logo">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="177" id="Gna-Vy-jJX"/>
-                                    <constraint firstAttribute="width" constant="252" id="Yty-Me-lfL"/>
+                                    <constraint firstAttribute="width" constant="252" id="0H3-oB-NBH"/>
+                                    <constraint firstAttribute="height" constant="177" id="TTw-0D-xSa"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="kys-BA-ejm" appends="YES" id="UVc-Xd-CRL"/>
@@ -239,12 +252,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="yfS-XH-gmv" secondAttribute="trailing" id="2ci-h7-Iva"/>
-                            <constraint firstItem="ixF-EM-M94" firstAttribute="top" secondItem="V8i-yD-g2n" secondAttribute="bottom" constant="67" id="3Cu-Zc-wpg"/>
-                            <constraint firstItem="yfS-XH-gmv" firstAttribute="top" secondItem="ixF-EM-M94" secondAttribute="bottom" priority="250" constant="100" id="9fi-FS-90U"/>
+                            <constraint firstItem="ixF-EM-M94" firstAttribute="top" secondItem="V8i-yD-g2n" secondAttribute="bottom" constant="30" id="UqZ-te-QA9"/>
+                            <constraint firstItem="yfS-XH-gmv" firstAttribute="top" secondItem="8lH-LN-Oz2" secondAttribute="bottom" constant="20" id="Urq-XX-5j2"/>
                             <constraint firstItem="V8i-yD-g2n" firstAttribute="leading" secondItem="vj0-KM-4wT" secondAttribute="leadingMargin" id="Z6K-WX-TL8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V8i-yD-g2n" secondAttribute="trailing" id="ZM3-hm-ey9"/>
-                            <constraint firstItem="ixF-EM-M94" firstAttribute="centerX" secondItem="V8i-yD-g2n" secondAttribute="centerX" id="ajW-Zc-c5H"/>
+                            <constraint firstItem="ixF-EM-M94" firstAttribute="centerX" secondItem="V8i-yD-g2n" secondAttribute="centerX" id="c3G-Zh-ULQ"/>
                             <constraint firstItem="V8i-yD-g2n" firstAttribute="top" secondItem="CxR-df-kj1" secondAttribute="bottom" constant="32" id="dB5-JI-Hki"/>
+                            <constraint firstItem="8lH-LN-Oz2" firstAttribute="top" secondItem="ixF-EM-M94" secondAttribute="bottom" constant="15" id="evC-jD-uDv"/>
+                            <constraint firstItem="8lH-LN-Oz2" firstAttribute="centerX" secondItem="yfS-XH-gmv" secondAttribute="centerX" id="g1Z-Xf-nug"/>
                             <constraint firstItem="yfS-XH-gmv" firstAttribute="leading" secondItem="vj0-KM-4wT" secondAttribute="leadingMargin" id="qR9-Hh-8RT"/>
                             <constraint firstItem="wad-54-sBn" firstAttribute="top" secondItem="yfS-XH-gmv" secondAttribute="bottom" constant="16" id="qX7-AI-KVu"/>
                         </constraints>
@@ -267,9 +282,14 @@
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUm-gg-dyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="kys-BA-ejm">
+                <tapGestureRecognizer id="kys-BA-ejm" userLabel="Alien DVR Tap Gesture">
                     <connections>
                         <action selector="alienLogoPress:" destination="yCx-xZ-dTs" id="UFk-SJ-2MG"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="xr6-ys-71f">
+                    <connections>
+                        <action selector="niteDevilLogoPress:" destination="yCx-xZ-dTs" id="rqr-a9-xaZ"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -320,5 +340,6 @@
     </scenes>
     <resources>
         <image name="alien_dvr_logo" width="398" height="280"/>
+        <image name="nitedevillogodemo" width="162" height="151"/>
     </resources>
 </document>

@@ -15,6 +15,10 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com")!)
     }
     
+    @IBAction func niteDevilLogoPress(sender: UITapGestureRecognizer) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.nitedevil.com")!)
+    }
+    
     @IBAction func closeModal(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
