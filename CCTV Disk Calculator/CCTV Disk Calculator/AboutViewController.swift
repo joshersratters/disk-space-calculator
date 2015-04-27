@@ -39,6 +39,7 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
         mailComposerVC.setToRecipients(["joshua.ratcliffe@systemq.com"])
         mailComposerVC.setSubject("Alien Calculator Feedback")
         mailComposerVC.setMessageBody("I would like to share the following feedback", isHTML: false)
+        mailComposerVC.navigationBar.tintColor = UIColor.whiteColor(); UIStatusBarStyle.LightContent
         
         return mailComposerVC
     }
