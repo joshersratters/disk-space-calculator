@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 
 class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
+    @IBOutlet weak var logoScrollView: UIScrollView!
     
     @IBAction func alienLogoPress(sender: UITapGestureRecognizer) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com")!)
@@ -54,14 +55,12 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
-    
 
 
     
     
      func viewDidLoad() {
         viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
