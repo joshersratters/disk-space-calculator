@@ -40,7 +40,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     @IBAction func displayTechnicalTips(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support")!)
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support/quicktips")!)
     }
     
     @IBAction func stepperValueChanged(sender: UIStepper) {
@@ -216,7 +216,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
         
         mailComposerVC.setToRecipients(["joshua.ratcliffe@systemq.com"])
-        mailComposerVC.setSubject("Alien DVR Quote")
+        mailComposerVC.setSubject("Alien DVR Quote Request")
         mailComposerVC.setMessageBody(quoteMessage, isHTML: false)
         mailComposerVC.navigationBar.tintColor = UIColor.whiteColor(); UIStatusBarStyle.LightContent
         
