@@ -169,6 +169,11 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="KPU-lZ-aZ4"/>
+                        <barButtonItem title="Request Quote" id="EHm-Fo-fzE">
+                            <connections>
+                                <action selector="requestQuote:" destination="vXZ-lx-hvc" id="6co-aH-JU4"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Calculator" id="HA7-q9-lzB">
                         <barButtonItem key="leftBarButtonItem" title="About" id="hAq-HB-aGu">
