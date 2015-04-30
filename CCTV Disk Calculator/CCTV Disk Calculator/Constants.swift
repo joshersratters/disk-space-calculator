@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants {
     let tableViewTitles: [String] = ["Data Rate (kb/s)", "Gigabytes per Day", "Number of Days", "Number of Months", "Number of Years"]
@@ -16,3 +17,5 @@ struct Constants {
     let resolutionMultipliers: [Double] = [0.25, 1, 2, 4, 8, 20]
     let baseDataRates: [Double] = [32, 48, 96, 128, 192, 224, 256, 384, 448, 512]
 }
+
+let colourTheme: UIColor = UIColor(red: 18/255, green: 143/255, blue: 217/255, alpha: 1)
