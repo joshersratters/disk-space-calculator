@@ -35,6 +35,7 @@
                                         <subviews>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="VgK-iI-SGq">
                                                 <rect key="frame" x="474" y="0.0" width="94" height="29"/>
+                                                <color key="tintColor" red="0.070588235294117646" green="0.5607843137254902" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="hardDiskStepperValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="0bn-w7-b5p"/>
                                                 </connections>
@@ -80,6 +81,7 @@
                                             </label>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="KDj-iQ-fx7">
                                                 <rect key="frame" x="474" y="0.0" width="94" height="29"/>
+                                                <color key="tintColor" red="0.070588235289999995" green="0.56078431370000004" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="stepperValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Xxw-t8-GVD"/>
                                                 </connections>
@@ -164,11 +166,18 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem title="Technical Tips" id="hFW-0L-wmQ">
+                            <color key="tintColor" red="0.070588235289999995" green="0.56078431370000004" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="displayTechnicalTips:" destination="vXZ-lx-hvc" id="6rD-Z1-PtC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="KPU-lZ-aZ4"/>
+                        <barButtonItem title="Request Quote" id="EHm-Fo-fzE">
+                            <color key="tintColor" red="0.070588235289999995" green="0.56078431370000004" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="requestQuote:" destination="vXZ-lx-hvc" id="6co-aH-JU4"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Calculator" id="HA7-q9-lzB">
                         <barButtonItem key="leftBarButtonItem" title="About" id="hAq-HB-aGu">
@@ -215,14 +224,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="This software is provided as-is for free use without warranty or otherwise" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfS-XH-gmv">
-                                <rect key="frame" x="16" y="515" width="568" height="25"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zDM-sr-33e">
-                                <rect key="frame" x="16" y="130" width="568" height="375"/>
+                                <rect key="frame" x="16" y="130" width="568" height="406"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="alien_dvr_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ixF-EM-M94" userLabel="Alien DVR Image">
                                         <rect key="frame" x="158" y="8" width="252" height="177"/>
@@ -255,7 +258,7 @@
                                 <constraints>
                                     <constraint firstItem="ixF-EM-M94" firstAttribute="centerX" secondItem="8lH-LN-Oz2" secondAttribute="centerX" id="3uS-dn-NOc"/>
                                     <constraint firstItem="8lH-LN-Oz2" firstAttribute="top" secondItem="ixF-EM-M94" secondAttribute="bottom" constant="31" id="dgQ-f3-PVT"/>
-                                    <constraint firstItem="8lH-LN-Oz2" firstAttribute="bottom" secondItem="zDM-sr-33e" secondAttribute="bottomMargin" id="eJW-M2-Ch6"/>
+                                    <constraint firstItem="8lH-LN-Oz2" firstAttribute="bottom" secondItem="zDM-sr-33e" secondAttribute="bottomMargin" constant="-31" id="eJW-M2-Ch6"/>
                                     <constraint firstItem="ixF-EM-M94" firstAttribute="top" secondItem="zDM-sr-33e" secondAttribute="topMargin" id="fJP-rJ-Gao"/>
                                     <constraint firstItem="ixF-EM-M94" firstAttribute="centerX" secondItem="zDM-sr-33e" secondAttribute="centerX" id="mge-eu-v2S"/>
                                     <constraint firstAttribute="trailing" secondItem="ixF-EM-M94" secondAttribute="trailing" constant="158" id="rWs-Pn-aDu"/>
@@ -265,20 +268,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zDM-sr-33e" firstAttribute="leading" secondItem="V8i-yD-g2n" secondAttribute="leading" id="1hz-yZ-dfs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yfS-XH-gmv" secondAttribute="trailing" id="2ci-h7-Iva"/>
                             <constraint firstItem="zDM-sr-33e" firstAttribute="top" secondItem="V8i-yD-g2n" secondAttribute="bottom" constant="8" symbolic="YES" id="5X0-US-XmZ"/>
-                            <constraint firstAttribute="bottom" secondItem="zDM-sr-33e" secondAttribute="bottom" constant="51" id="IFE-7b-euL"/>
+                            <constraint firstAttribute="bottom" secondItem="zDM-sr-33e" secondAttribute="bottom" constant="20" id="IFE-7b-euL"/>
                             <constraint firstItem="zDM-sr-33e" firstAttribute="trailing" secondItem="V8i-yD-g2n" secondAttribute="trailing" id="TOU-oO-wjD"/>
                             <constraint firstItem="V8i-yD-g2n" firstAttribute="leading" secondItem="vj0-KM-4wT" secondAttribute="leadingMargin" id="Z6K-WX-TL8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V8i-yD-g2n" secondAttribute="trailing" id="ZM3-hm-ey9"/>
                             <constraint firstItem="V8i-yD-g2n" firstAttribute="top" secondItem="CxR-df-kj1" secondAttribute="bottom" constant="32" id="dB5-JI-Hki"/>
-                            <constraint firstItem="yfS-XH-gmv" firstAttribute="leading" secondItem="vj0-KM-4wT" secondAttribute="leadingMargin" id="qR9-Hh-8RT"/>
-                            <constraint firstItem="wad-54-sBn" firstAttribute="top" secondItem="yfS-XH-gmv" secondAttribute="bottom" constant="16" id="qX7-AI-KVu"/>
-                            <constraint firstItem="yfS-XH-gmv" firstAttribute="top" secondItem="zDM-sr-33e" secondAttribute="bottom" constant="10" id="u5F-rd-oQ0"/>
                         </constraints>
                     </view>
                     <toolbarItems>
                         <barButtonItem title="Feedback" id="0xp-VT-NT3">
+                            <color key="tintColor" red="0.070588235289999995" green="0.56078431370000004" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="feedbackButtonPress:" destination="yCx-xZ-dTs" id="ouR-Gd-CT3"/>
                             </connections>

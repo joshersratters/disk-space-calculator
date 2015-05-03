@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import MessageUI
 
-
-class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, MFMailComposeViewControllerDelegate {
     var numberOfHardDrives: Int = 0
-    var hardDriveCapacity: Int = 0
+    var hardDriveCapacity: (value:Int, name: String) = (0, "nothing")
     var frameRate: Int = 0
-    var resolution: Int = 0
+    var resolution: (value: Int, name: String) = (0, "nothing")
     var resolutionMultiplier: Double = 0
     var baseDataRate: Double = 0
     
@@ -22,6 +22,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     var numberOfDays: Double = 0
     var numberOfMonths: Double = 0
     var numberOfYears: Double = 0
+    
+    
     
     
     @IBOutlet weak var hardDiskStepper: UIStepper!
@@ -38,7 +40,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     @IBAction func displayTechnicalTips(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support")!)
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com/support/quicktips")!)
     }
     
     @IBAction func stepperValueChanged(sender: UIStepper) {
@@ -49,6 +51,15 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     @IBAction func hardDiskStepperValueChanged(sender: AnyObject) {
         numberOfHardDrivesLabel.text = (Int(hardDiskStepper.value)).description
         calculate()
+    }
+    
+    @IBAction func requestQuote(sender: AnyObject) {
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
     }
     
     override func viewDidLoad() {
@@ -64,7 +75,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             switch componentIndex {
             case 0:
                 rowIndex = 3
-                resolution = Constants().resolutions[rowIndex].value
+                resolution.value = Constants().resolutions[rowIndex].value; resolution.name = Constants().resolutions[rowIndex].name
                 resolutionMultiplier = Constants().resolutionMultipliers[rowIndex]
             case 1:
                 rowIndex = 6
@@ -72,7 +83,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
                 baseDataRate = Constants().baseDataRates[rowIndex]
             case 2:
                 rowIndex = 0
-                hardDriveCapacity = Constants().hardDriveCapacities[rowIndex].int
+                hardDriveCapacity.value = Constants().hardDriveCapacities[rowIndex].int; hardDriveCapacity.name = Constants().hardDriveCapacities[rowIndex].string
             default: rowIndex = 0
             }
             
@@ -84,7 +95,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     }
     
     func calculate() {
-        let calculator = Calculator(baseDataRate: baseDataRate, resolutionMultiplier: resolutionMultiplier, numberOfCameras: stepper.value, hardDriveCapacity: hardDriveCapacity, numberOfHardDrives: (Int(hardDiskStepper.value)))
+        let calculator = Calculator(baseDataRate: baseDataRate, resolutionMultiplier: resolutionMultiplier, numberOfCameras: stepper.value, hardDriveCapacity: hardDriveCapacity.value, numberOfHardDrives: (Int(hardDiskStepper.value)))
         
         dataRate = calculator.getDataRate()
         gigabytesPerDay = calculator.getGigabytesPerDay()
@@ -94,7 +105,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
         
         outputTableView.reloadData()
     }
-    
     
     // Begin UITableView Code
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -184,7 +194,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            resolution = Constants().resolutions[row].value
+            resolution.value = Constants().resolutions[row].value; resolution.name = Constants().resolutions[row].name
             resolutionMultiplier = Constants().resolutionMultipliers[row]
             calculate()
         case 1:
@@ -192,12 +202,37 @@ class ViewController: UIViewController, UITableViewDataSource, UIPickerViewDataS
             baseDataRate = Constants().baseDataRates[row]
             calculate()
         case 2:
-            hardDriveCapacity = Constants().hardDriveCapacities[row].int
+            hardDriveCapacity.value = Constants().hardDriveCapacities[row].int; hardDriveCapacity.name = Constants().hardDriveCapacities[row].string
             calculate()
         default:
            break
         }
     }
     // End UIPickerView Code
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        var quoteMessage: String = "Quote request for Alien DVR with the below specification; \n\n\(resolution.name) resolution \n\(frameRate)fps \n\(Int(stepper.value)) cameras \n\(hardDriveCapacity.name) hard drive \n\(Int(hardDiskStepper.value)) Hard Drive(s)"
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients(["joshua.ratcliffe@systemq.com"])
+        mailComposerVC.setSubject("Alien DVR Quote Request")
+        mailComposerVC.setMessageBody(quoteMessage, isHTML: false)
+        mailComposerVC.navigationBar.tintColor = UIColor.whiteColor(); UIStatusBarStyle.LightContent
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
+
+
 
