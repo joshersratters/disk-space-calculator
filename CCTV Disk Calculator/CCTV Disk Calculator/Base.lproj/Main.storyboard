@@ -351,7 +351,7 @@
                         <sections>
                             <tableViewSection headerTitle="Register for email news and updates" id="Ws1-eP-flx">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bpR-14-RL4" userLabel="First Name Table View Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="bpR-14-RL4" userLabel="First Name Table View Cell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bpR-14-RL4" id="p0Z-yn-cfo">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -403,7 +403,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter email address here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cYb-aU-gpZ">
                                                     <rect key="frame" x="150" y="7" width="210" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
