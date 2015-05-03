@@ -33,6 +33,9 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func submitPress(sender: AnyObject) {
+        
+    }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
         switch textField {
