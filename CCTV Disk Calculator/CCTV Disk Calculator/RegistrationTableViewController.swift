@@ -12,16 +12,20 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var submitButton: UIBarButtonItem!
     
-    struct formValues {
-        var firstName: String = RegistrationTableViewController().firstNameTextField.description
-        var lastName: String = RegistrationTableViewController().lastNameTextField.description
-        var email: String = RegistrationTableViewController().emailTextField.description
+    func submitButtonShow(firstNameTextField: UITextField, lastNameTextField: UITextField, emailTextField: UITextField) {
+        if firstNameTextField.text.isEmpty || lastNameTextField.text.isEmpty || emailTextField.text.isEmpty {
+            submitButton.enabled = false
+        } else  {
+            submitButton.enabled = true
+        }
+        
     }
-    
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        submitButtonShow(firstNameTextField, lastNameTextField: lastNameTextField, emailTextField: emailTextField)
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self
         self.emailTextField.delegate = self
@@ -34,8 +38,11 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
     }
     
     @IBAction func submitPress(sender: AnyObject) {
+        var registration = RegistrationDetails(firstName: firstNameTextField.text, lastName: lastNameTextField.text, email: emailTextField.text)
+        println("\(registration.firstName, registration.lastName, registration.email)")
         
     }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
         switch textField {
@@ -45,8 +52,10 @@ class RegistrationTableViewController: UITableViewController, UITextFieldDelegat
         case lastNameTextField:
             textField.resignFirstResponder()
             emailTextField.becomeFirstResponder()
+            submitButtonShow(firstNameTextField, lastNameTextField: lastNameTextField, emailTextField: emailTextField)
         case emailTextField:
             emailTextField.resignFirstResponder()
+            submitButtonShow(firstNameTextField, lastNameTextField: lastNameTextField, emailTextField: emailTextField)
         default:
             true
         }

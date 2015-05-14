@@ -429,6 +429,7 @@
                         <outlet property="emailTextField" destination="cYb-aU-gpZ" id="rYB-VM-AVt"/>
                         <outlet property="firstNameTextField" destination="g1u-zk-z48" id="ubn-Pi-Fer"/>
                         <outlet property="lastNameTextField" destination="x42-wK-O4B" id="TGJ-Ha-mbh"/>
+                        <outlet property="submitButton" destination="6tz-cG-CA9" id="wd9-tx-zVf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGg-1Y-mtc" userLabel="First Responder" sceneMemberID="firstResponder"/>

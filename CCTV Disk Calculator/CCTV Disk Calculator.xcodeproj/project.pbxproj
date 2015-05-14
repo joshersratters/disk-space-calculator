@@ -11,6 +11,7 @@
 		262E38A81AF63791008F7729 /* RegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262E38A71AF63791008F7729 /* RegistrationTableViewController.swift */; };
 		2657183D1AE9592A00782348 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2657183C1AE9592A00782348 /* Constants.swift */; };
 		268908B41AE84C8A0043FA5E /* DigitalVideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268908B31AE84C8A0043FA5E /* DigitalVideoRecorder.swift */; };
+		26C1D0881B05313200A4336A /* RegistrationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C1D0871B05313200A4336A /* RegistrationDetails.swift */; };
 		26C2C2921AC86FC50058A344 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2C2911AC86FC50058A344 /* AppDelegate.swift */; };
 		26C2C2941AC86FC50058A344 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2C2931AC86FC50058A344 /* ViewController.swift */; };
 		26C2C2971AC86FC50058A344 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C2C2951AC86FC50058A344 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		262E38A71AF63791008F7729 /* RegistrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTableViewController.swift; sourceTree = "<group>"; };
 		2657183C1AE9592A00782348 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		268908B31AE84C8A0043FA5E /* DigitalVideoRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitalVideoRecorder.swift; sourceTree = "<group>"; };
+		26C1D0871B05313200A4336A /* RegistrationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationDetails.swift; sourceTree = "<group>"; };
 		26C2C28C1AC86FC50058A344 /* CCTV Disk Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCTV Disk Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C2C2901AC86FC50058A344 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26C2C2911AC86FC50058A344 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				1BF8B41F1AE7C44B00C5B7D7 /* Calculator.swift */,
 				2657183C1AE9592A00782348 /* Constants.swift */,
 				268908B31AE84C8A0043FA5E /* DigitalVideoRecorder.swift */,
+				26C1D0871B05313200A4336A /* RegistrationDetails.swift */,
 				1BF8B4211AE7C46C00C5B7D7 /* View Controllers */,
 				26C2C2951AC86FC50058A344 /* Main.storyboard */,
 				26C2C29A1AC86FC50058A344 /* LaunchScreen.xib */,
@@ -245,6 +248,7 @@
 				1BF8B4201AE7C44B00C5B7D7 /* Calculator.swift in Sources */,
 				268908B41AE84C8A0043FA5E /* DigitalVideoRecorder.swift in Sources */,
 				26C2C2941AC86FC50058A344 /* ViewController.swift in Sources */,
+				26C1D0881B05313200A4336A /* RegistrationDetails.swift in Sources */,
 				26C2C2921AC86FC50058A344 /* AppDelegate.swift in Sources */,
 				262E38A81AF63791008F7729 /* RegistrationTableViewController.swift in Sources */,
 			);
