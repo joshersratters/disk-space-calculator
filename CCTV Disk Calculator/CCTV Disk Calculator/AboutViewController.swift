@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 
 class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    @IBOutlet weak var logoScrollView: UIScrollView!
+    @IBOutlet weak var logoScrollView: UIScrollView! //http://spin.atomicobject.com/2014/03/05/uiscrollview-autolayout-ios/
     
     @IBAction func alienLogoPress(sender: UITapGestureRecognizer) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.aliendvr.com")!)
@@ -56,9 +56,6 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
 }
 
-
-    
-    
      func viewDidLoad() {
         viewDidLoad()
         // Do any additional setup after loading the view.

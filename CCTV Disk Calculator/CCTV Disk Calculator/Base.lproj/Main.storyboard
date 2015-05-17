@@ -171,14 +171,14 @@
                                 <action selector="displayTechnicalTips:" destination="vXZ-lx-hvc" id="6rD-Z1-PtC"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem width="21" style="plain" systemItem="fixedSpace" id="FTN-Nd-Od5"/>
-                        <barButtonItem title="Request Quote" id="EHm-Fo-fzE">
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="jj8-0M-jt4"/>
+                        <barButtonItem title=" Quote" id="EHm-Fo-fzE">
                             <color key="tintColor" red="0.070588235289999995" green="0.56078431370000004" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="requestQuote:" destination="vXZ-lx-hvc" id="6co-aH-JU4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem width="21" style="plain" systemItem="fixedSpace" id="hx9-LR-63j"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="05i-ka-M1U"/>
                         <barButtonItem title="Register" id="4FB-l3-tqc">
                             <color key="tintColor" red="0.070588235289999995" green="0.56078431370000004" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
